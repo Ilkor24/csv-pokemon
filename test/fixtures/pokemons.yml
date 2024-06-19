@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pokedex_id: 1
+  name: MyString
+  url_regular: MyString
+  url_shiny: MyString
+  type: 
+  evolutions_id: MyString
+
+two:
+  pokedex_id: 1
+  name: MyString
+  url_regular: MyString
+  url_shiny: MyString
+  type: 
+  evolutions_id: MyString

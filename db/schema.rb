@@ -10,5 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_19_201531) do
+  create_table "pokemons", force: :cascade do |t|
+    t.integer "pokedex_id"
+    t.string "name"
+    t.string "url_regular"
+    t.string "url_shiny"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "types"
+    t.text "evolutions_id"
+  end
+
 end
