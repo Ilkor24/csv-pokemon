@@ -8,74 +8,124 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 # db/seeds.rb
-
+# db/seeds.rb
 Pokemon.destroy_all
 
 require 'open-uri'
 require 'json'
 
-def fetch_data(url)
-  response = URI.open(url).read
-  JSON.parse(response)
-end
+def pokemon
+  data = JSON.parse(URI.open('https://tyradex.vercel.app/api/v1/pokemon').read)
 
-def seed_pokemon_data
-  generation_url = 'https://pokeapi.co/api/v2/generation/1'
-  generation_data = fetch_data(generation_url)
+  data.each do |pokemon|
+    if pokemon['generation'] == 1
+      french_name = pokemon['name']['fr']
+      id = pokemon['pokedex_id']
+      sprite = pokemon['sprites']['regular']
+      sprite_shiny = pokemon['sprites']['shiny']
+      types = []
+      evolve_next = []
+      evolve_previous = []
 
-  generation_data['pokemon_species'].each do |species|
-    species_data = fetch_data(species['url'])
-    pokemon_data = fetch_data("https://pokeapi.co/api/v2/pokemon/#{species_data['id']}")
+      if pokemon['types']
+        pokemon['types'].each do |type|
+          types << type['name']
+        end
+      end
 
-    french_name = species_data['names'].find { |name| name['language']['name'] == 'fr' }['name']
-    id = species_data['id']
-    sprite = pokemon_data['sprites']['front_default']
-    sprite_shiny = pokemon_data['sprites']['front_shiny']
-    types = pokemon_data['types'].map { |type_info| type_info['type']['name'] }
+      if pokemon['evolution'] && pokemon['evolution']['next']
+        pokemon['evolution']['next'].each do |evolution|
+          evolve_next << evolution['pokedex_id']
+        end
+      end
 
-    evolutions_ids = collect_evolution_ids(species_data['evolution_chain']['url'])
-
-    evolutions_ids -= [id] if evolutions_ids.include?(id)
-
-    Pokemon.create(
-      name: french_name,
-      pokedex_id: id,
-      url_regular: sprite,
-      url_shiny: sprite_shiny,
-      types: types,
-      evolutions_id: evolutions_ids
-    )
+      if pokemon['evolution'] && pokemon['evolution']['pre']
+        pokemon['evolution']['pre'].each do |evolution|
+          evolve_previous << evolution['pokedex_id']
+        end
+      end
+      evolutions_ids = evolve_previous + evolve_next
+      Pokemon.create(
+        name: french_name,
+        pokedex_id: id,
+        url_regular: sprite,
+        url_shiny: sprite_shiny,
+        types: types,
+        evolutions_id: evolutions_ids
+      )
+    end
   end
 end
 
-def collect_evolution_ids(evolution_chain_url)
-  evolution_data = fetch_data(evolution_chain_url)
-  chain = evolution_data['chain']
-  collect_chain_evolution_ids(chain)
-end
+pokemon
 
-def collect_chain_evolution_ids(chain)
-  evolutions_ids = []
-  collect_first_evolution_ids(chain['evolves_to'], evolutions_ids) if chain['evolves_to']
-  evolutions_ids
-end
+# Pokemon.destroy_all
 
-def collect_first_evolution_ids(evolution_array, evolutions_ids)
-  evolution_array.each do |evolution|
-    evolutions_ids << extract_pokemon_id(evolution['species']['url'])
-    collect_second_evolution_ids(evolution['evolves_to'], evolutions_ids) if evolution['evolves_to']
-  end
-end
+# require 'open-uri'
+# require 'json'
 
-def collect_second_evolution_ids(evolution_array, evolutions_ids)
-  evolution_array&.each do |evolution|
-    evolutions_ids << extract_pokemon_id(evolution['species']['url'])
-  end
-end
+# def fetch_data(url)
+#   response = URI.open(url).read
+#   JSON.parse(response)
+# end
 
-def extract_pokemon_id(pokemon_url)
-  pokemon_data = fetch_data(pokemon_url)
-  pokemon_data['id']
-end
+# def seed_pokemon_data
+#   generation_url = 'https://pokeapi.co/api/v2/generation/1'
+#   generation_data = fetch_data(generation_url)
 
-seed_pokemon_data
+#   generation_data['pokemon_species'].each do |species|
+#     species_data = fetch_data(species['url'])
+#     pokemon_data = fetch_data("https://pokeapi.co/api/v2/pokemon/#{species_data['id']}")
+
+#     french_name = species_data['names'].find { |name| name['language']['name'] == 'fr' }['name']
+#     id = species_data['id']
+#     sprite = pokemon_data['sprites']['front_default']
+#     sprite_shiny = pokemon_data['sprites']['front_shiny']
+#     types = pokemon_data['types'].map { |type_info| type_info['type']['name'] }
+
+#     evolutions_ids = collect_evolution_ids(species_data['evolution_chain']['url'])
+
+#     evolutions_ids -= [id] if evolutions_ids.include?(id)
+
+#     Pokemon.create(
+#       name: french_name,
+#       pokedex_id: id,
+#       url_regular: sprite,
+#       url_shiny: sprite_shiny,
+#       types: types,
+#       evolutions_id: evolutions_ids
+#     )
+#   end
+# end
+
+# def collect_evolution_ids(evolution_chain_url)
+#   evolution_data = fetch_data(evolution_chain_url)
+#   chain = evolution_data['chain']
+#   collect_chain_evolution_ids(chain)
+# end
+
+# def collect_chain_evolution_ids(chain)
+#   evolutions_ids = []
+#   collect_first_evolution_ids(chain['evolves_to'], evolutions_ids) if chain['evolves_to']
+#   evolutions_ids
+# end
+
+# def collect_first_evolution_ids(evolution_array, evolutions_ids)
+#   evolution_array.each do |evolution|
+#     evolutions_ids << extract_pokemon_id(evolution['species']['url'])
+#     collect_second_evolution_ids(evolution['evolves_to'], evolutions_ids) if evolution['evolves_to']
+#   end
+# end
+
+# def collect_second_evolution_ids(evolution_array, evolutions_ids)
+#   evolution_array&.each do |evolution|
+#     evolutions_ids << extract_pokemon_id(evolution['species']['url'])
+#   end
+# end
+
+# def extract_pokemon_id(pokemon_url)
+#   pokemon_data = fetch_data(pokemon_url)
+#   pokemon_data['id']
+# end
+
+# seed_pokemon_data
