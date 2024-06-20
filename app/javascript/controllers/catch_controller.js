@@ -1,8 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
 
-const audio = new Audio("../../assets/audio/pokemonCatch.wav");
+const audio = new Audio("/pokemonCatch.wav");
+
 export default class extends Controller {
   static targets = ["checkbox", 'checked']
+  static values = { audioPath: String }
   connect() {
     console.log("hello");
   }

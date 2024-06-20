@@ -28,7 +28,7 @@
         <p>Si tu l'ajouter dans ton CsvDex appuie sur la Pokeball</p>
         <div class="track">
           <div class="pokeball">
-            <%= check_box_tag 'pokemon_ids[]', pokemon.id, false, data: { action: 'click->catch#check', catch_target: 'checked' } %>
+            <%= check_box_tag 'pokemon_ids[]', pokemon.id, false, data: { catch_target: 'checkbox' } %>
             <div class="pokeball__contents">
             <div class="pokeball__inner"></div>
             <div class="pokeball__crossbar"></div>
