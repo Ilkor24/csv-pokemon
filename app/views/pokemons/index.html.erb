@@ -1,4 +1,4 @@
-<div class="container" style="text-align: center;" data-controller="catch">
+<div class="container" style="text-align: center;">
   <h1>Pokemon</h1>
 
   <div>
@@ -8,7 +8,7 @@
     <% end %>
   </div>
 
-<%= form_with(url: export_pokemons_path, local: true, data: { turbo: false, controller: 'search', action: 'submit->catch#uncheck' }) do |form| %>
+<%= form_with(url: export_pokemons_path, local: true, data: { turbo: false, controller: 'catch', action: 'submit->catch#uncheck' }) do |form| %>
   <div class="two-columns mt-5">
     <% @pokemons.each do |pokemon| %>
       <div class="pokemon-card">
@@ -30,5 +30,4 @@
     </div>
   <% end %>
 </div>
-
 </div>
