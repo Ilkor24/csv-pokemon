@@ -8,7 +8,7 @@ class PokemonsController < ApplicationController
   def index
     pokemon
     @pokemons = Pokemon.order(:pokedex_id)
-    # instead of using if params[:query].present?
+    # instead of using if params[:query].present?/rubocop advice
     return unless params[:query].present?
 
     @pokemons = @pokemons.where('name ILIKE ?', "%#{params[:query]}%")
@@ -39,7 +39,7 @@ class PokemonsController < ApplicationController
         evolve = nil
         previous = nil
 
-      # instead of using if pokemon['types']
+      # instead of using if pokemon['types']/rubocop advice
       pokemon['types']&.each do |type|
         types << type['name']
       end

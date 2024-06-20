@@ -4,7 +4,7 @@ const audio = new Audio("/pokemonCatch.wav");
 
 export default class extends Controller {
   static targets = ["checkbox", 'checked']
-  static values = { audioPath: String }
+
   connect() {
     console.log("hello");
   }
@@ -16,9 +16,6 @@ export default class extends Controller {
       checkbox.checked = false;
     });
     audio.play();
-  }
-
-  check(){
   }
 }
 
