@@ -1,0 +1,205 @@
+$dark: black;
+$light: white;
+$blue: #7db9e8;
+$yellow: yellow;
+$green: #afcf61;
+$med: #eee;
+$red: #ff1c1c;
+$i: 45px;
+$b: 3px;
+
+*, *:before, *:after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+main {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.track {
+  width: calc( #{$i} * 2 );
+  border-radius: $i;
+  box-shadow: 0 0 0 5px rgba($dark, .15);
+  background-color: $med;
+  background: linear-gradient(
+    to bottom,
+    darken($med, 15%) 0%,
+    #fff 50%,
+    darken($med, 15%) 100%
+  );
+}
+
+.pokeball,
+.pokeball__contents {
+  display: block;
+  height: $i;
+  width: $i;
+}
+
+.pokeball {
+  position: relative;
+}
+
+.pokeball__contents {
+  position: relative;
+  background-color: $dark;
+  border-radius: 100%;
+  box-shadow:
+    0 0 0 $b $dark,
+    0 0 calc( #{$b} * 3 ) 0 $dark
+  ;
+  overflow: hidden;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  transition: transform 250ms ease-in-out;
+  transform: translateX(0) rotate(0deg);
+}
+
+.pokeball__inner {
+  position: relative;
+
+  &:before, &:after {
+    position: absolute;
+    top: 0; left: 0;
+    display: block;
+    content: "";
+    width: $i;
+    height: $i;
+    border-radius: 100%;
+  }
+
+  &:before {
+    background-color: $light;
+  }
+
+  &:after {
+    z-index: 1;
+    background-color: $red;
+    clip-path: inset(0 0 50% 0);
+  }
+}
+
+.pokeball__crossbar {
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  overflow: visible;
+  height: calc( #{$b} * 2 );
+  width: 100%;
+  background-color: $dark;
+
+  &:before, &:after {
+    position: absolute;
+    content: "";
+    transform-origin: center;
+    will-change: transform, background;
+    animation-direction: alternate;
+    animation-duration: 0.8s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+  }
+
+  &:before {
+    z-index: 2;
+    display: block;
+    top: 50%; left: 50%;
+    width: calc( #{$i} / 4 );
+    height: calc( #{$i} / 4 );
+    border-radius: 100%;
+    background-color: $light;
+    box-shadow:
+      0 0 0 $b $dark,
+      inset 0 0 0 calc( #{$b} / 2 ) $light,
+      inset 0 0 0 $b $dark
+    ;
+    transition:
+      transform 300ms ease-in-out,
+      background 300ms ease-in-out
+    ;
+    transform: translateY(-50%) translateX(-50%);
+  }
+
+  &:after {
+    position: absolute;
+    left: 0; top: 50%;
+    z-index: 1;
+    overflow: visible;
+    height: calc( #{$b} * 2 );
+    width: 100%;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      $yellow 50%,
+      transparent 100%
+    );
+    transition: transform 300ms ease-in-out;
+    transform: translateY(-50%) scaleX(0);
+  }
+}
+
+input[type="checkbox"] {
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  appearance: none;
+  border-radius: 100%;
+  transition: transform 200ms ease-in-out;
+  cursor: pointer;
+  outline: none;
+
+  &:active {
+
+    + .pokeball__contents {
+      transform: scale(0.8);
+    }
+  }
+
+  &:checked {
+
+    &, + .pokeball__contents {
+      transform: translateX(100%) rotate(360deg);
+    }
+
+    + .pokeball__contents {
+
+      .pokeball__crossbar {
+
+        &:before {
+          transform: translateY(-50%) translateX(-50%) scale(1.15);
+          animation-name: pulseLight;
+        }
+
+        &:after {
+          animation-name: pulseBar;
+        }
+      }
+    }
+  }
+}
+
+@keyframes pulseBar {
+  from {
+    transform: translateY(-50%) scale(0.8, 0.5);
+  }
+  to {
+    transform: translateY(-50%) scale(2, 0.5);
+  }
+}
+
+@keyframes pulseLight {
+  from {
+    background-color: $dark;
+  }
+  to {
+    background-color: $yellow;
+  }
+}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_20_073730) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_20_154637) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_20_073730) do
     t.datetime "updated_at", null: false
     t.text "types", default: [], array: true
     t.integer "evolutions_id", default: [], array: true
+    t.string "name_of_evolution"
+    t.string "name_of_previous_form"
   end
 
 end

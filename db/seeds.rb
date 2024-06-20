@@ -26,6 +26,8 @@ def pokemon
       types = []
       evolve_next = []
       evolve_previous = []
+      evolve = nil
+      previous = nil
 
       if pokemon['types']
         pokemon['types'].each do |type|
@@ -35,15 +37,22 @@ def pokemon
 
       if pokemon['evolution'] && pokemon['evolution']['next']
         pokemon['evolution']['next'].each do |evolution|
-          evolve_next << evolution['pokedex_id']
+          if evolution['pokedex_id'] <= 151
+            evolve_next << evolution['pokedex_id']
+            evolve = evolution['name']
+          end
         end
       end
 
       if pokemon['evolution'] && pokemon['evolution']['pre']
         pokemon['evolution']['pre'].each do |evolution|
-          evolve_previous << evolution['pokedex_id']
+          if evolution['pokedex_id'] <= 151
+            evolve_previous << evolution['pokedex_id']
+            previous = evolution['name']
+          end
         end
       end
+
       evolutions_ids = evolve_previous + evolve_next
       Pokemon.create(
         name: french_name,
@@ -51,7 +60,9 @@ def pokemon
         url_regular: sprite,
         url_shiny: sprite_shiny,
         types: types,
-        evolutions_id: evolutions_ids
+        evolutions_id: evolutions_ids,
+        name_of_evolution: evolve,
+        name_of_previous_form: previous
       )
     end
   end
@@ -59,6 +70,7 @@ end
 
 pokemon
 
+Pokemon.first.destroy
 # Pokemon.destroy_all
 
 # require 'open-uri'
