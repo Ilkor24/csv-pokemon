@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_19_201531) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_20_073730) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "pokemons", force: :cascade do |t|
     t.integer "pokedex_id"
     t.string "name"
@@ -18,8 +21,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_201531) do
     t.string "url_shiny"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "types"
-    t.text "evolutions_id"
+    t.text "types", default: [], array: true
+    t.integer "evolutions_id", default: [], array: true
   end
 
 end

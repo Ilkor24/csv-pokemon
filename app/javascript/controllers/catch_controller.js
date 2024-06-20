@@ -1,10 +1,19 @@
 import { Controller } from "@hotwired/stimulus"
 
+const audio = new Audio("../../assets/audio/pokemonCatch.wav");
 // Connects to data-controller="catch"
 export default class extends Controller {
-  static targets=["put"]
+  static targets = ["checkbox"]
   connect() {
     console.log("hello");
+    this.pokemon()
+  }
+
+  uncheck(){
+    this.checkboxTargets.forEach(checkbox => {
+      checkbox.checked = false;
+      audio.play();
+    });
   }
 
   pokemon() {
@@ -19,14 +28,20 @@ export default class extends Controller {
                 .then(response => response.json())
                 .then(evolutionData => {
                   const chain = evolutionData.chain;
-                  // Print the first evolution (direct evolution)
                   if (chain.evolves_to.length > 0) {
                     chain.evolves_to.forEach(firstEvolution => {
-                      console.log("First Evolution Name:", firstEvolution.species.name);
-                      // Print the second evolution (evolution of the first evolution)
+                      fetch(firstEvolution.species.url)
+                      .then(reponse => reponse.json())
+                      .then(data =>
+                        console.log(data.id)
+                      )
                       if (firstEvolution.evolves_to.length > 0) {
                         firstEvolution.evolves_to.forEach(secondEvolution => {
-                          console.log("Second Evolution Name:", secondEvolution.species.name);
+                          fetch(secondEvolution.species.url)
+                          .then(reponse => reponse.json())
+                          .then(data =>
+                            console.log(data.id)
+                          )
                         });
                       }
                     });

@@ -1,25 +1,21 @@
-// Import any necessary libraries or frameworks here
-@import "bootstrap"; // Example import, adjust as needed
+// app/assets/stylesheets/application.scss
 
-// Custom styles
 .two-columns {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+}
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
+  .two-columns {
     grid-template-columns: 1fr;
   }
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(17ch, 1fr)); // Adjusted minmax function
+  grid-template-columns: repeat(auto-fit, minmax(17ch, 1fr));
   gap: 1rem;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr)); // Adjusted for smaller screens
-  }
 }
 
 .pokemon-card,
@@ -39,13 +35,14 @@
   color: #000;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out,
     background-position 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
 
-  &:hover {
-    transform: rotate3d(1, 0.5, 0.1, 30deg);
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
-    background-position: 100% 50%;
-    border-color: #f7d25e;
-  }
+.pokemon-card:hover {
+  /* 3D rotation animation */
+  transform: rotate3d(1, 0.5, 0.1, 30deg);
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+  background-position: 100% 50%;
+  border-color: #f7d25e;
 }
 
 .pokemon-card-image {
@@ -65,4 +62,12 @@
   height: 100vh;
   position: sticky;
   top: 0;
+}
+
+.actions {
+  position: fixed;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  z-index: 1000;
 }

@@ -1,9 +1,34 @@
-<div data-controller="catch">
-<button type="button" class="btn btn-primary" data-action="click->catch#pokemon">Primary</button>
+<div class="container" style="text-align: center;" data-controller="catch">
+  <h1>Pokemon</h1>
+
+  <div>
+    <%= form_tag(pokemons_path, method: :get) do %>
+      <%= text_field_tag(:query, params[:query], placeholder: "Enter a Pokémon name") %>
+      <%= submit_tag("Search") %>
+    <% end %>
+  </div>
+
+<%= form_with(url: export_pokemons_path, local: true, data: { turbo: false, controller: 'search', action: 'submit->catch#uncheck' }) do |form| %>
+  <div class="two-columns mt-5">
+    <% @pokemons.each do |pokemon| %>
+      <div class="pokemon-card">
+        <div class="d-flex">
+          <img src="<%= pokemon.url_regular %>">
+          <img src="<%= pokemon.url_shiny %>">
+        </div>
+        <h2 class="pokemon-card-title"><%= pokemon.name %></h2>
+        <p class="pokemon-card-subtitle">Type: <%= pokemon.types.map(&:capitalize).join(', ') %></p>
+        <p class="pokemon-card-subtitle">Pokedex National: <%= pokemon.pokedex_id %></p>
+        <% if pokemon.evolutions_id.any? %>
+          <p class="pokemon-card-subtitle">Pokedex National Evolution: <%= pokemon.evolutions_id.join(', ') %></p>
+        <% end %>
+        <%= check_box_tag 'pokemon_ids[]', pokemon.id, false, data: { catch_target: 'checkbox' } %>
+      </div>
+    <% end %>
+    <div class="actions mt-3">
+      <%= submit_tag "Export", class: "btn btn-primary" %>
+    </div>
+  <% end %>
 </div>
 
-<ul>
-<% @pokemons.each do |pokemon| %>
-<li><%= pokemon.name %>, <%= pokemon.types %></li>
-<% end %>
-</ul>
+</div>

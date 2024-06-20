@@ -5,9 +5,8 @@ class CreatePokemons < ActiveRecord::Migration[7.1]
       t.string :name
       t.string :url_regular
       t.string :url_shiny
-      t.string :type
-      t.integer :evolutions_id
-
+      t.string :types, array: true, default: []
+      t.integer :evolutions_id, array: true, default: []
       t.timestamps
     end
   end
