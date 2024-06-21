@@ -8,6 +8,7 @@ class PokemonsController < ApplicationController
   def index
     pokemon
     @pokemons = Pokemon.order(:pokedex_id)
+
     # instead of using if params[:query].present?/rubocop advice
     return unless params[:query].present?
 
@@ -29,15 +30,16 @@ class PokemonsController < ApplicationController
 
     data.each do |pokemon|
       next unless pokemon['generation'] == 1
-        french_name = pokemon['name']['fr']
-        id = pokemon['pokedex_id']
-        sprite = pokemon['sprites']['regular']
-        sprite_shiny = pokemon['sprites']['shiny']
-        types = []
-        evolve_next = []
-        evolve_previous = []
-        evolve = nil
-        previous = nil
+
+      french_name = pokemon['name']['fr']
+      id = pokemon['pokedex_id']
+      sprite = pokemon['sprites']['regular']
+      sprite_shiny = pokemon['sprites']['shiny']
+      types = []
+      evolve_next = []
+      evolve_previous = []
+      evolve = nil
+      previous = nil
 
       # instead of using if pokemon['types']/rubocop advice
       pokemon['types']&.each do |type|
@@ -73,7 +75,7 @@ class PokemonsController < ApplicationController
         evolutions_id: evolutions_ids,
         name_of_evolution: evolve,
         name_of_previous_form: previous
-        )
+      )
     end
     Pokemon.first.destroy
   end

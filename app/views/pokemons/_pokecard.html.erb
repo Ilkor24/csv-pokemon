@@ -1,0 +1,34 @@
+<%= form_with(url: export_pokemons_path, local: true, data: { turbo: false, controller: 'catch', action: 'submit->catch#uncheck' }) do |form| %>
+  <div class="two-columns">
+    <% @pokemons.each do |pokemon| %>
+      <div class="pokemon-card">
+        <div class="d-flex">
+          <img src="<%= pokemon.url_regular %>">
+          <img src="<%= pokemon.url_shiny %>">
+        </div>
+        <h2 class="pokemon-card-title"><%= pokemon.name %></h2>
+        <p class="pokemon-card-subtitle">Type: <%= pokemon.types.map(&:capitalize).join(', ') %></p>
+        <p class="pokemon-card-subtitle">Pokedex: <%= pokemon.pokedex_id %></p>
+        <% if !(pokemon.name_of_previous_form.blank?) %>
+          <p class="pokemon-card-subtitle">Précédente forme <%= pokemon.name_of_previous_form %></p>
+        <% end %>
+        <% if !(pokemon.name_of_evolution.blank?) %>
+          <p class="pokemon-card-subtitle">Évolues en <%= pokemon.name_of_evolution %></p>
+        <% end %>
+        <p>Si tu l'ajouter dans ton CsvDex appuie sur la Pokeball</p>
+        <div class="track">
+          <div class="pokeball">
+            <%= check_box_tag 'pokemon_ids[]', pokemon.id, false, data: { catch_target: 'checkbox' } %>
+            <div class="pokeball__contents">
+            <div class="pokeball__inner"></div>
+            <div class="pokeball__crossbar"></div>
+            </div>
+            </div>
+          </div>
+      </div>
+    <% end %>
+    <div class="actions mt-3">
+      <%= submit_tag "Export", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
