@@ -8,7 +8,7 @@ gem "rails", "~> 7.1.3", ">= 7.1.3.3"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
-# Use sqlite3 as the database for Active Record
+# Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
@@ -31,10 +31,6 @@ gem 'sassc'
 gem 'bootstrap', '~> 5.3'
 
 gem 'sassc-rails'
-
-gem 'httparty'
-
-gem 'simple_form'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

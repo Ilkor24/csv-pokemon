@@ -1,4 +1,0 @@
-name; pokedex_id; url_regular; url_shiny; types; evolutions_id
-Bulbizarre; 1; https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/1/regular.png; https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/1/shiny.png; Plante, Poison; 2, 3
-Herbizarre; 2; https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/2/regular.png; https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/2/shiny.png; Plante, Poison; 1, 3
-Florizarre; 3; https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/3/regular.png; https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/3/shiny.png; Plante, Poison; 1, 2

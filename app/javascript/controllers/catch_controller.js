@@ -3,13 +3,12 @@ import { Controller } from "@hotwired/stimulus"
 const audio = new Audio("/pokemonCatch.wav");
 
 export default class extends Controller {
-  static targets = ["checkbox", 'checked']
+  static targets = ["checkbox"]
 
   connect() {
-    console.log("hello");
-
-    this.checkboxTargets.forEach((checkbox, index) => {
-      const uniqueId = `checkbox-${index}`;
+    this.checkboxTargets.forEach((checkbox) => {
+      // Identifier unique > id with index
+      const uniqueId = `checkbox-${checkbox.dataset.pokemonName}`;
       checkbox.id = uniqueId;
 
       const isChecked = localStorage.getItem(uniqueId) === 'true';
@@ -22,12 +21,12 @@ export default class extends Controller {
   }
 
   uncheck(event){
-    console.log(this.checkboxTargets);
     event.preventDefault();
     this.element.submit();
     this.checkboxTargets.forEach(checkbox => {
       checkbox.checked = false;
-      localStorage.setItem(checkbox.id, false);
+      const uniqueId = `checkbox-${checkbox.dataset.pokemonName}`;
+      localStorage.setItem(uniqueId, false);
     });
     audio.play();
   }

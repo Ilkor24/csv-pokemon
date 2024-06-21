@@ -18,7 +18,7 @@
         <p>Si tu l'ajouter dans ton CsvDex appuie sur la Pokeball</p>
         <div class="track">
           <div class="pokeball">
-            <%= check_box_tag 'pokemon_ids[]', pokemon.id, false, data: { catch_target: 'checkbox' } %>
+            <%= check_box_tag 'pokemon_ids[]', pokemon.id, false, data: { catch_target: 'checkbox', pokemon_name: pokemon.name } %>
             <div class="pokeball__contents">
             <div class="pokeball__inner"></div>
             <div class="pokeball__crossbar"></div>
@@ -27,8 +27,13 @@
           </div>
       </div>
     <% end %>
-    <div class="actions mt-3">
-      <%= submit_tag "Export", class: "btn btn-primary" %>
+    <div class="actions">
+      <p>Si tu veux</p>
+      <p>exporter</p>
+      <p>tes Pokemons</p>
+      <p>clique sur</p>
+      <p>la PokeBall</p>
+      <%= submit_tag "", class: "pokebtn" %>
     </div>
   </div>
 <% end %>
