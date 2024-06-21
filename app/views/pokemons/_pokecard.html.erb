@@ -10,10 +10,11 @@
         <% if !(pokemon.name_of_previous_form.blank?) %>
           <p class="pokemon-card-subtitle">Précédente forme <%= pokemon.name_of_previous_form %></p>
         <% end %>
-        <% if !(pokemon.name_of_evolution.blank?) %>
-          <p class="pokemon-card-subtitle">Évolues en <%= pokemon.name_of_evolution %></p>
+        <% unless pokemon.name_of_evolution.blank? %>
+          <% first_evolution = pokemon.name_of_evolution.split(",") %>
+          <p class="pokemon-card-subtitle">Évolue en <%= first_evolution.first %></p>
         <% end %>
-        <p>Si tu l'ajouter dans ton CsvDex appuie sur la Pokeball</p>
+        <p>Si tu veux l'ajouter dans ton CsvDex, appuie sur la Pokeball</p>
         <div class="track">
           <div class="pokeball">
             <%= check_box_tag 'pokemon_ids[]', pokemon.id, false, data: { catch_target: 'checkbox', pokemon_name: pokemon.name } %>

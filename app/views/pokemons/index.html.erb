@@ -2,8 +2,8 @@
   <a href="/" style="font-size: 2.125rem;">CsvDex<a>
 
   <div class="m-5" >
-    <%= form_tag(pokemons_path, method: :get) do %>
-      <%= text_field_tag(:query, params[:query], placeholder: "Enter a Pokémon name") %>
+      <%= form_tag(pokemons_path, method: :get, data: { controller: "searching", searching_target: "form" }) do %>
+      <%= text_field_tag(:query, params[:query], placeholder: "Enter a Pokémon name", data: { action: "input->searching#submit", searching_target: "input" }) %>
       <%= submit_tag("Search") %>
     <% end %>
   </div>
