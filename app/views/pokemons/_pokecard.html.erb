@@ -4,17 +4,16 @@
       <div class="pokemon-card" data-controller="mouse-hover-image" data-action="mouseenter->mouse-hover-image#showShiny mouseleave->mouse-hover-image#showRegular">
           <img src="<%= pokemon.url_regular %>" data-mouse-hover-image-target="regular">
           <img src="<%= pokemon.url_shiny %>" data-mouse-hover-image-target="shiny">
-        <h2 class="pokemon-card-title"><%= pokemon.name %></h2>
+        <h3 class="pokemon-card-title"><%= pokemon.name %></h3>
+        <p class="pokemon-card-subtitle">N°<%= pokemon.pokedex_id %></p>
         <p class="pokemon-card-subtitle">Type: <%= pokemon.types.map(&:capitalize).join(', ') %></p>
-        <p class="pokemon-card-subtitle">Pokedex: <%= pokemon.pokedex_id %></p>
-        <% if !(pokemon.name_of_previous_form.blank?) %>
+        <% unless pokemon.name_of_previous_form.blank? %>
           <p class="pokemon-card-subtitle">Précédente forme <%= pokemon.name_of_previous_form %></p>
         <% end %>
         <% unless pokemon.name_of_evolution.blank? %>
-          <% first_evolution = pokemon.name_of_evolution.split(",") %>
-          <p class="pokemon-card-subtitle">Évolue en <%= first_evolution.first %></p>
+          <p class="pokemon-card-subtitle">Évolue en <%= pokemon.name_of_evolution %></p>
         <% end %>
-        <p>Si tu veux l'ajouter dans ton CsvDex, appuie sur la Pokeball</p>
+        <p>Ajoute le dans ton CsvDex en appuyant sur la Pokeball</p>
         <div class="track">
           <div class="pokeball">
             <%= check_box_tag 'pokemon_ids[]', pokemon.id, false, data: { catch_target: 'checkbox', pokemon_name: pokemon.name } %>

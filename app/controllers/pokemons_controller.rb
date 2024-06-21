@@ -39,7 +39,7 @@ class PokemonsController < ApplicationController
       types = []
       evolve_next = []
       evolve_previous = []
-      evolve = nil
+      evolves = []
       previous = nil
 
       # instead of using if pokemon['types']/rubocop advice
@@ -51,7 +51,7 @@ class PokemonsController < ApplicationController
         pokemon['evolution']['next'].each do |evolution|
           if evolution['pokedex_id'] <= 151
             evolve_next << evolution['pokedex_id']
-            evolve = evolution['name']
+            evolves << evolution['name']
           end
         end
       end
@@ -64,7 +64,7 @@ class PokemonsController < ApplicationController
           end
         end
       end
-
+      evolve = evolves.first
       evolutions_ids = evolve_previous + evolve_next
 
       Pokemon.create(
