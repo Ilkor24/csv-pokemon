@@ -1,11 +1,9 @@
 <%= form_with(url: export_pokemons_path, local: true, data: { turbo: false, controller: 'catch', action: 'submit->catch#uncheck' }) do |form| %>
   <div class="two-columns">
     <% @pokemons.each do |pokemon| %>
-      <div class="pokemon-card">
-        <div class="d-flex">
-          <img src="<%= pokemon.url_regular %>">
-          <img src="<%= pokemon.url_shiny %>">
-        </div>
+      <div class="pokemon-card" data-controller="mouse-hover-image" data-action="mouseenter->mouse-hover-image#showShiny mouseleave->mouse-hover-image#showRegular">
+          <img src="<%= pokemon.url_regular %>" data-mouse-hover-image-target="regular">
+          <img src="<%= pokemon.url_shiny %>" data-mouse-hover-image-target="shiny">
         <h2 class="pokemon-card-title"><%= pokemon.name %></h2>
         <p class="pokemon-card-subtitle">Type: <%= pokemon.types.map(&:capitalize).join(', ') %></p>
         <p class="pokemon-card-subtitle">Pokedex: <%= pokemon.pokedex_id %></p>
