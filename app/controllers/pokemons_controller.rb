@@ -6,7 +6,8 @@ require 'json'
 
 class PokemonsController < ApplicationController
   def index
-    pokemon
+    pokemon if Pokemon.all.empty?
+
     @pokemons = Pokemon.order(:pokedex_id)
 
     # instead of using if params[:query].present?/rubocop advice
