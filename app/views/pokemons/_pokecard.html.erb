@@ -25,13 +25,12 @@
           </div>
       </div>
     <% end %>
-    <div class="actions">
-      <p>Si tu veux</p>
-      <p>exporter</p>
-      <p>tes Pokemons</p>
-      <p>clique sur</p>
-      <p>la PokeBall</p>
-      <%= submit_tag "", class: "pokebtn" %>
-    </div>
+  </div>
+  <div class="actions" data-controller="redirect">
+    <% if current_page?(root_path) %>
+      <%= submit_tag "", class: "pokebtn", data: {redirect_target: 'submit'}%>
+    <% else %>
+      <%= link_to "", root_path, class: "pokebtn", data: {action: "click->redirect#redirectToRootAndSubmit" } %>
+    <% end %>
   </div>
 <% end %>
