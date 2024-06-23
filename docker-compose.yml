@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: actual_username # Ensure this matches your Rails configuration
+      POSTGRES_PASSWORD: actual_password  # Ensure this matches your Rails configuration
+      POSTGRES_DB: csv_pokemon_export_development  # Ensure this matches your Rails configuration
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: bundle exec puma -C config/puma.rb
+    volumes:
+      - .:/docker/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://actual_username:actual_password@db:5432/csv_pokemon_export_development
