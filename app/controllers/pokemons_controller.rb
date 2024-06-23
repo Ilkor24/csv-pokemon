@@ -4,6 +4,7 @@ require 'csv'
 require 'open-uri'
 require 'json'
 
+# This controller manages Pokémon data, including listing, filtering by Pokédex id, exporting selected Pokémon, and initializing the database with first-generation Pokémon data.
 class PokemonsController < ApplicationController
   def index
     pokemon if Pokemon.all.empty?
@@ -33,6 +34,7 @@ class PokemonsController < ApplicationController
       next unless pokemon['generation'] == 1
 
       french_name = pokemon['name']['fr']
+      next if french_name == 'MissingNo.'
       id = pokemon['pokedex_id']
       sprite = pokemon['sprites']['regular']
       sprite_shiny = pokemon['sprites']['shiny']
@@ -78,6 +80,5 @@ class PokemonsController < ApplicationController
         name_of_previous_form: previous
       )
     end
-    Pokemon.first.destroy
   end
 end

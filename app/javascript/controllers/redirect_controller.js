@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="redirect"
+// This controller is used to redirect to the root path and submit the form
 export default class extends Controller {
   static targets = ['submit']
   redirectToRootAndSubmit() {

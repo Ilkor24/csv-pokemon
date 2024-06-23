@@ -1,3 +1,4 @@
+<!-- This form displays a list of Pokémon with options to select them for export, dynamically changes images on hover, and provides navigation based on the current page. -->
 <%= form_with(url: export_pokemons_path, local: true, data: { turbo: false, controller: 'catch', action: 'submit->catch#uncheck' }) do |form| %>
 <button type="button" class="btn btn-success m-3" data-action="click->catch#allcheck">Tout sélectionner</button>
   <div class="two-columns">

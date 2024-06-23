@@ -1,6 +1,7 @@
 // hover_image_controller.js
 import { Controller } from "@hotwired/stimulus"
 
+// This controller is used to show the shiny image when the user hovers over the regular image
 export default class extends Controller {
   static targets = ["regular", "shiny"];
 

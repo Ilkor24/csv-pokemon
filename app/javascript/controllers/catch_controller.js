@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 const audio = new Audio("/pokemonCatch.wav");
 
+// This controller is used to uncheck all checkboxes and submit the form, play a sound when the user submits the form, save the state of the checkboxes in localStorage and check all checkboxes
 export default class extends Controller {
   static targets = ["checkbox"]
 
