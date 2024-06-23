@@ -16,3 +16,6 @@ Une fois l'application fonctionnelle, j'ai utilisé du javascript pour la rendre
 Même si le but n'était pas le front j'ai tenté de rendre l'application la plus agréable possible. D'autres petites features sont disponibles.
 
 Enfin, l'application fonctionne avec docker. Cependant, j'ai dû faire un changement dans le dockerfile initial de rails : https://stackoverflow.com/questions/77725755/segmentation-fault-during-rails-assetsprecompile-on-apple-silicon-m3-with-rub
+
+
+ATTENTION DB => postgresql
