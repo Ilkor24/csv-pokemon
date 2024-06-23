@@ -30,4 +30,10 @@ export default class extends Controller {
     });
     audio.play();
   }
+
+  allcheck(){
+    this.checkboxTargets.forEach(checkbox => {
+      checkbox.checked = true;
+    });
+  }
 }
