@@ -1,0 +1,14 @@
+:concurrency: 3
+:timeout: 60
+:verbose: true
+:queues:
+  - default
+  - mailers
+  - active_storage_analysis
+  - active_storage_purge
+
+:scheduler:
+  :schedule:
+    destroy_pokemon:
+      cron: '6 10 * * *'  # Runs every day at 12:06 UTC+2
+      class: DestroyPokemonJob

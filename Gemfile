@@ -28,9 +28,16 @@ gem "jbuilder"
 
 gem 'sassc'
 
+# Use bootstart for styling
 gem 'bootstrap', '~> 5.3'
 
+#Use Sassc for compiling scss
 gem 'sassc-rails'
+
+# Use for background job processing
+gem 'sidekiq'
+gem 'sidekiq-scheduler'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
