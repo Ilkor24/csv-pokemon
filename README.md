@@ -19,17 +19,21 @@ Rails : 7.1.3.3
 
 ## Instalation 
 Installation 📦 Cloner le dépôt
+
 `git clone git@github.com:Ilkor24/csv-pokemon.git`
 
-git
 📥 Se rendre dans le dossier
+
 `cd csv-pokemon`
 
-projetPokemon
 🏗️ Setup l'application
+
 `bundle install`
+
 `bundle exec rails db:create`
+
 `rails db:migrate`
 
 🚀 Lancer l'application
+
 `bundle exec rails server`
